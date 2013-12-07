@@ -1,0 +1,14 @@
+<div class="modal show fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-header">
+    <h1 class="title">{{title}}</h1>
+  </div>
+  <div ng-controller="AlertCtrl" ng-cloak>
+    <alerti ng-repeat="alert in alerts" type="alert.type" closeable="true" close="closeAlert($index)" ng-cloak>{{alert.msg}}</alerti>
+  </div>
+  <div class="modal-body" ng-transclude></div>
+  <div class="modal-footer">
+    {{footertext}}
+    <button class="btn" ng-if="extrabutton" aria-hidden="true" ng-click="extraDelegate(extrabutton)">{{extrabuttonlabel}}</button>
+    <button class="btn cancel pull-left" data-dismiss="modal" aria-hidden="true" ng-click="closeDelegate(close)">{{closelabel}}</button>
+  </div>
+</div>

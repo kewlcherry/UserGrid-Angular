@@ -1,0 +1,28 @@
+<div class="content-page" ng-controller="GroupsDetailsCtrl">
+
+  <div>
+
+    <form>
+      <div style="float: left; padding-right: 30px;">
+        <h4 class="ui-dform-legend">Group Information</h4>
+        <label for="path" class="ui-dform-label">Group Path</label>
+        <input type="text"class="ui-dform-text" ng-model="selectedGroup._data.path">
+        <br/>
+        <label for="title" class="ui-dform-label">Group Title</label>
+        <input type="text" class="ui-dform-text" ng-model="selectedGroup._data.title">
+        <br/>
+      </div>
+      <br style="clear:both"/>
+      <div style="width:100%;float:left;padding: 20px 0">
+        <a style="margin-right: 15px;" class="btn btn-primary"  ng-click="saveSelectedGroup()">Save Group</a>
+      </div>
+
+      <div class="content-container">
+        <h4>JSON Group Object</h4>
+        <pre>{{selectedGroup._json}}</pre>
+      </div>
+    </form>
+  </div>
+
+
+</div>

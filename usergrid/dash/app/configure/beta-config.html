@@ -1,0 +1,109 @@
+<div>
+
+  <section class="row-fluid">
+
+    <div class="span12">
+      <div class="page-filters">
+      <h1 class="title"><i class="pictogram title">&#59190;</i> Beta Testing Configs</h1>
+      </div>
+
+    </div>
+    </section>
+      <div class="row-fluid" >
+
+        <div class="span12">
+
+          <form class="form-horizontal configs">
+            <div class="control-group">
+              <slidecheckbox label="Enable Device Level Override" data="configData.deviceLevelOverrideEnabled"></slidecheckbox>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Matching Apigee Device Ids (one Id per line):</label>
+              <div class="controls">
+                  <textarea ng-model="deviceIdFilters" ng-blur="updateFilter(deviceIdFilters,'deviceIdFilters','DEVICE_ID')"></textarea>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Matching Telephone Numbers (Android Only):</label>
+              <div class="controls">
+                  <textarea ng-model="deviceNumberFilters" ng-blur="updateFilter(deviceNumberFilters,'deviceNumberFilters','DEVICE_NUMBER')"></textarea>
+              </div>
+            </div>
+
+            <h2 class="title">Monitoring Configs</h2>
+
+            <div class="control-group">
+              <slidecheckbox label="Enable Log Capturing" data="configData.deviceLevelAppConfig.enableLogMonitoring"></slidecheckbox>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Log Capture Levels</label>
+              <div class="controls">
+                <select ng-model="betaLogLevel" ng-options="l.label for l in logLevels" ng-change="updateLogLevel(betaLogLevel,'deviceLevelAppConfig')"></select>
+              </div>
+            </div>
+            <div class="control-group">
+              <slidecheckbox label="Enable Network Monitoring" data="configData.deviceLevelAppConfig.networkMonitoringEnabled"></slidecheckbox>
+            </div>
+            <div class="control-group">
+              <slidecheckbox label="Enable Device Data Capture" data="configData.deviceLevelAppConfig.deviceIdCaptureEnabled"></slidecheckbox>
+            </div>
+            <div class="control-group">
+
+              <slidecheckbox label="Read Location" data="configData.deviceLevelAppConfig.locationCaptureEnabled"></slidecheckbox>
+
+              <slidecheckbox label="Read IMEI" data="configData.deviceLevelAppConfig.imeicaptureEnabled"></slidecheckbox>
+
+              <slidecheckbox label="Read Device Model" data="configData.deviceLevelAppConfig.deviceModelCaptureEnabled"></slidecheckbox>
+
+              <slidecheckbox label="Read Network Carrier" data="configData.deviceLevelAppConfig.networkCarrierCaptureEnabled"></slidecheckbox>
+
+              <slidecheckbox label="Read Apigee Device ID" data="configData.deviceLevelAppConfig.deviceIdCaptureEnabled"></slidecheckbox>
+
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="inputUploadInt">Data Upload Interval (in Seconds)</label>
+              <div class="controls">
+                <input type="text" id="inputUploadInt" ng-model="configData.deviceLevelAppConfig.agentUploadIntervalInSeconds">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="inputSampRate">Sampling Rate (in Percentage)</label>
+              <div class="controls">
+                <input type="text" id="inputSampRate" ng-model="configData.deviceLevelAppConfig.samplingRate">
+              </div>
+            </div>
+            <div class="control-group">
+              <slidecheckbox label="Upload When Roaming" data="configData.deviceLevelAppConfig.enableUploadWhenRoaming"></slidecheckbox>
+            </div>
+            <div class="control-group">
+              <slidecheckbox label="Upload When Not on WIFI" data="configData.deviceLevelAppConfig.enableUploadWhenMobile"></slidecheckbox>
+            </div>
+
+            <h2 class="title">Application Specific Configs</h2>
+            <div class="form-inline" ng-repeat="config in deviceLevelConfigParameters">
+              <input name="category" type="text" class="input-large" ng-model="config.tag" required>
+              <input name="key" type="text" class="input-large" ng-model="config.paramKey"  required> =
+              <input name="value" type="text" class="input-large" ng-model="config.paramValue" required>
+              <span class="hide">{{config.index = ($index + 1)}}</span>
+              <button class="btn" ng-click="addRemoveConfig(config,'deviceLevelConfigParameters')" ng-show="deviceLevelConfigParameters.length != ($index + 1)">-</button>
+              <button class="btn" ng-click="addRemoveConfig(config,'deviceLevelConfigParameters')" ng-show="deviceLevelConfigParameters.length == ($index + 1)">+</button>
+            </div>
+            <hr/>
+            <button type="submit" class="btn" ng-click="saveData('deviceLevelConfigParameters')">Save Changes</button>
+
+          </form>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+</div>
+
+

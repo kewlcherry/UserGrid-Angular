@@ -1,0 +1,11 @@
+<ul class="info-details unstyled">
+  <li class="title small">{{title}}</li>
+  <li class="top-5-crash info-box">
+    <div class="summary-container {{datasrc.color}}">
+      {{datasrc.label}}
+      <div class="compare-data" ng-show="currentcompare != 'NOW'">
+        <span class="{{currentcompare}}">({{currentcompare == 'YESTERDAY' && 'Yesterday' || 'Last Week'}}) {{datasrc.value}}</span>
+      </div>
+    </div>
+  </li>
+</ul>

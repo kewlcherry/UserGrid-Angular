@@ -1,0 +1,78 @@
+<div class="content-page" ng-controller="RolesSettingsCtrl">
+
+  <div>
+    <h4>Inactivity</h4>
+    <div id="role-permissions">
+        <p>Integer only. 0 (zero) means no expiration.</p>
+        Seconds: <input style="margin: 0" type="text" name="role-inactivity" id="role-inactivity-input" ng-model="selectedRole.inactivity">
+        <button ng-click="updateInactivity()" class="btn btn-primary">Set</button>
+    </div>
+
+    <bsmodal id="deletePermission"
+             title="Confirmation"
+             close="hideModal"
+             closelabel="Cancel"
+             extrabutton="deleteRolePermissionDialog"
+             extrabuttonlabel="Delete"
+             ng-cloak>
+      <p>Are you sure you want to delete the permission(s)?</p>
+    </bsmodal>
+
+
+    <bsmodal id="addPermission"
+             title="New Permission"
+             close="hideModal"
+             closelabel="Cancel"
+             extrabutton="addRolePermissionDialog"
+             extrabuttonlabel="Add"
+             ng-cloak>
+      <p>Path: <input ng-model="$parent.path" /></p>
+      <div class="control-group">
+        <input type="checkbox" ng-model="$parent.permissions.getPerm"> GET
+      </div>
+      <div class="control-group">
+        <input type="checkbox" ng-model="$parent.permissions.postPerm"> POST
+      </div>
+      <div class="control-group">
+        <input type="checkbox" ng-model="$parent.permissions.putPerm"> PUT
+      </div>
+      <div class="control-group">
+        <input type="checkbox" ng-model="$parent.permissions.deletePerm"> DELETE
+      </div>
+    </bsmodal>
+
+    <br/>
+    <div class="button-strip">
+      <button class="btn btn-primary" ng-click="showModal('addPermission')">Add Permission</button>
+      <button class="btn btn-primary" ng-click="showModal('deletePermission')">Delete Permission(s)</button>
+    </div>
+
+    <h4>Permissions</h4>
+    <table class="table table-striped">
+      <tbody>
+      <tr class="table-header">
+        <td style="width: 30px;"><input type="checkbox" ng-click="checkAll()" ng-model="master"></td>
+        <td>Path</td>
+        <td>GET</td>
+        <td>POST</td>
+        <td>PUT</td>
+        <td>DELETE</td>
+      </tr>
+      <tr class="zebraRows" ng-repeat="permission in selectedRole.permissions">
+        <td>
+          <input
+            type="checkbox"
+            ng-checked="master"
+            ng-model="permission.checked"
+            >
+        </td>
+        <td>{{permission.path}}</td>
+        <td>{{permission.operations.get}}</td>
+        <td>{{permission.operations.post}}</td>
+        <td>{{permission.operations.put}}</td>
+        <td>{{permission.operations.delete}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

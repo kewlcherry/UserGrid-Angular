@@ -1,0 +1,62 @@
+<div class="content-page" style="min-height: 500px;">
+
+  <section class="row-fluid">
+
+    <div class="span12">
+      <div class="page-filters">
+        <h1 class="title" class="pull-left"><i class="pictogram title">&#9991;</i> Message History</h1>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="row-fluid">
+    <div class="span12">
+        <a style="float: right" target="_blank" href="http://apigee.com/docs/usergrid/content/push-notifications" class="notifications-links">Learn more in our docs</a>
+
+        <div class="pull-left" style="margin-top: 10px;">
+          <ul class="nav nav-pills">
+            <li ng-class="selectedHistory.name === option.name ? 'active' : ''" ng-repeat="option in historyList"><a ng-click="showHistory(option)">{{option.name}}</a></li>
+          </ul>
+        </div>
+     </div>
+    </section>
+  <section class="row-fluid">
+    <div class="span12">
+      <div ng-if="notificationCollection._list.length === 0">
+        No messages found
+      </div>
+
+      <div ng-repeat="notification in notificationCollection._list">
+        <div style="border: 1px solid #aaa;">
+            <div class="notifications-header">
+              <div style="float: left">
+                <strong>Send Date:</strong>
+                {{getNotificationStartedDate(notification._data) | date:'EEEE, MMMM d, y h:mm:ss a'}}
+                <div style="margin-top: 10px;">
+                  <img src="img/green_dot.png" style="vertical-align:middle;margin-top: -3px;"> {{notification._data.state}}
+                </div>
+              </div>
+              <div style="float: right; text-align: right;">
+                &nbsp; <a href="" class="notifications-links" ng-click="viewReceipts('{{notification._data.uuid}}')">view details</a>
+                <br>Total Sent: {{notification._data.statistics.sent ? notification._data.statistics.sent : 0}} Total Errors: {{notification._data.statistics.errors ? notification._data.statistics.errors : 0}}
+                <br>
+                <b>UUID</b>:
+                <a href="" ng-click="viewReceipts('{{notification._data.uuid}}')">{{notification._data.uuid}}</a>
+              </div>
+            </div>
+            <div style="padding: 10px;">
+              payload: {{notification._data.payloads}}
+            </div>
+          </div>
+          <br>
+        </div>
+
+        <div style="height:20px">&nbsp;</div>
+        <div style="padding: 10px 5px 10px 5px">
+          <button class="btn btn-primary" ng-click="getPrevious()" style="display:{{previous_display}}">< Previous</button>
+          <button class="btn btn-primary" ng-click="getNext()" style="display:{{next_display}}; float:right;">Next ></button>
+        </div>
+      </div>
+   </section>
+</div>

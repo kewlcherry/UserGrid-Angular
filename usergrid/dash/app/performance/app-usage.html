@@ -1,0 +1,158 @@
+<div class="page-filters">
+  <h1 class="title" class="pull-left"><i class="pictogram title">&#128202;</i> App Usage</h1>
+  <span ng-include="'performance/includes/time-filters.html'"></span>
+</div>
+
+
+
+<div ng-init="appUsageSetup()">
+
+
+  <!-- errors and crashes total row -->
+  <section class="row-fluid api-perf-charts">
+
+    <div class="span12">
+      <h2 class="title chart">Active Sessions Count {{selectedChartCriteria.chartName}}</h2>
+      <!--step: <input ng-model="apptest.step" width="5" style="width: 20px" />-->
+
+      <div ng-include="'performance/includes/no-data.html'" ng-if="chartDataWaiting || !chartDataPresent"></div>
+
+      <div class="main-chart-holder" ng-if="chartDataPresent">
+      <chart id="sessionTotals" class="anim-chart" ng-if="selectedChartCriteria.chartName === 'Overview'"
+             chartdata="appUsageCharts.totals"
+             type="line"
+             xAxisLabel="return Highcharts.dateFormat('%a, %H:%M', this.value);"
+             xAxisStep="3"></chart>
+
+      <chart id="sessionTotalsBar" class="anim-chart" ng-if="selectedChartCriteria.chartName !== 'Overview'"
+             chartdata="appUsageCharts.totals"
+             type="column"></chart>
+      </div>
+      <div class="row-fluid app-summary-data">
+        <div class="span4">
+          <infobox datasrc="appUsageCharts.summary.totalSessions"
+                   currentcompare="appUsageCharts.summary.currentCompare"
+                   title="Total Sessions"
+                   class="usage"></infobox>
+        </div>
+
+        <div class="span4">
+          <infobox datasrc="appUsageCharts.summary.maxConcurrentSessions"
+                   currentcompare="appUsageCharts.summary.currentCompare"
+                   title="Max Concurrent Sessions"
+                   class="usage"></infobox>
+        </div>
+
+        <div class="span4">
+          <infobox datasrc="appUsageCharts.summary.totalUniqueUsers"
+                   currentcompare="appUsageCharts.summary.currentCompare"
+                   title="Total Unique Users"
+                   class="usage"></infobox>
+        </div>
+      </div>
+
+    </div>
+
+
+  </section>
+
+  <section class="row-fluid api-issues" ng-if="selectedChartCriteria.chartName === 'Overview'">
+    <div class="span6">
+
+      <ul class="span12 info-details unstyled">
+        <li class="title pie-label">App Version</li>
+      </ul>
+      <div class="span12 app-usage-content">
+        <chart id="appVersion" class="anim-chart"
+               chartdata="appUsageCharts.appVersion.chart"
+               type="pie" style="max-width:60%;margin:0 0 0 -5%;height:300px"
+               titleicon="&#128202;"
+               titleiconclass="apichart"
+               titlecolor="rgba(27,112,160,0.4)"
+               titleimagetop="-6%"
+               titleimageleft="-5%"></chart>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>App Version</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="app in appUsageCharts.appVersion.data.chartData">
+            <td class="graph-row" >
+              <div class="bar"></div>
+              {{app.attribute}}
+            </td>
+            <td class="count">{{app.percentage | number:0}}%</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="span6">
+
+      <ul class="span12 info-details unstyled">
+        <li class="title pie-label">Device Platform</li>
+      </ul>
+
+      <div class="span12 app-usage-content">
+        <chart id="devicePlatform" class="anim-chart"
+               chartdata="appUsageCharts.devicePlatform.chart"
+               type="pie" style="max-width:60%;margin:0 0 0 -5%;height:300px"
+               titleicon="&#128202;"
+               titleiconclass="apichart"
+               titlecolor="rgba(27,112,160,0.4)"
+               titleimagetop="-6%"
+               titleimageleft="-5%"></chart>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Platform</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr ng-repeat="app in appUsageCharts.devicePlatform.data.chartData">
+            <td class="graph-row" >
+              <div class="bar"></div>
+              {{app.attribute}}
+            </td>
+            <td class="count">{{app.percentage | number:0}}%</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="row-fluid" ng-if="selectedChartCriteria.chartName === 'Overview'">
+    <div class="span6 pareto-charts">
+          <h2 class="title">Sessions by Device Model</h2>
+
+          <chart id="sessionsByModel" class="anim-chart"
+                 chartdata="appUsageCharts.sessionsByModel"
+                 type="column"
+                 height="300"></chart>
+    </div>
+
+    <div class="span6 pareto-charts">
+      <h2 class="title">Sessions by OS Versions</h2>
+
+      <chart id="sessionsByModel" class="anim-chart"
+             chartdata="appUsageCharts.sessionsByPlatform"
+             type="column"
+             height="300"></chart>
+    </div>
+  </section>
+
+
+
+
+
+</div>
+
+
